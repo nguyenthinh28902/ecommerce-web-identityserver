@@ -1,17 +1,17 @@
-﻿namespace EcommerceIdentityServerCMS.Models
+﻿namespace Ecom.IdentityServer.Models
 {
     public class Result<T>
     {
         public Result() { }
-        public bool IsSuccess { get; }
-        public string? Error { get; }
-        public T? Data { get; }
+        public bool IsSuccess { get; set; }
+        public string? Noti { get; set; }
+        public T? Data { get; set; }
 
-        protected Result(bool isSuccess, T? data, string? error)
+        protected Result(bool isSuccess, T? data, string? noti)
         {
             IsSuccess = isSuccess;
             Data = data;
-            Error = error;
+            Noti = noti;
         }
         public static Result<T> Success(T data, string mess)
        => new(true, data, mess);

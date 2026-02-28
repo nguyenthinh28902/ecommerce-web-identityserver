@@ -1,6 +1,6 @@
-﻿using EcommerceIdentityServerCMS.Common.Exceptions;
-using EcommerceIdentityServerCMS.Common.Helpers;
-using EcommerceIdentityServerCMS.Common.Helpers.Identity;
+﻿using Ecom.IdentityServer.Common.Exceptions;
+using Ecom.IdentityServer.Common.Helpers;
+using Ecom.IdentityServer.Common.Helpers.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

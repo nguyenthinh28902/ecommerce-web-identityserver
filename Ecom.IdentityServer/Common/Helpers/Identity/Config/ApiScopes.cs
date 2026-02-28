@@ -1,6 +1,6 @@
 ﻿using Duende.IdentityServer.Models;
 
-namespace EcommerceIdentityServerCMS.Common.Helpers.Identity.Config
+namespace Ecom.IdentityServer.Common.Helpers.Identity.Config
 {
     public static class ApiScopes
     {
@@ -8,12 +8,10 @@ namespace EcommerceIdentityServerCMS.Common.Helpers.Identity.Config
         {
             return new[]
             {
-               
-
-                // Quyền cũ của bạn
-                new ApiScope("user.internal", "User full access"),
-                new ApiScope("user.read", "User read information"),
-                new ApiScope("user.write", "User write information"),
+                new ApiScope("customer.internal", "Full access to customer Service"),
+                new ApiScope("customer.read", "view infor"),
+                new ApiScope("customer.write", "Update infor"),
+                new ApiScope("product.read.web", "Read product information"),
             };
         }
     }

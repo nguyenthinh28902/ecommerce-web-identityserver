@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EcommerceIdentityServerCMS.Migrations.PersistedGrantDb
+namespace Ecom.IdentityServer.Data.Migrations.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20260130114904_InitialPersistedGrantDb")]
+    [Migration("20260228074359_InitialPersistedGrantDb")]
     partial class InitialPersistedGrantDb
     {
         /// <inheritdoc />

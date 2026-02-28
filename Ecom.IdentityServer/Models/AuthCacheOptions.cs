@@ -1,4 +1,4 @@
-﻿namespace EcommerceIdentityServerCMS.Models
+﻿namespace Ecom.IdentityServer.Models
 {
     public static class AuthCacheOptions
     {

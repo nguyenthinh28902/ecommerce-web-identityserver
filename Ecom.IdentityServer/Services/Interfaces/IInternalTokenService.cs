@@ -1,6 +1,6 @@
-﻿using EcommerceIdentityServerCMS.Models.DTOs.SignIn;
+﻿using Ecom.IdentityServer.Models.DTOs.SignIn;
 
-namespace EcommerceIdentityServerCMS.Services.Interfaces
+namespace Ecom.IdentityServer.Services.Interfaces
 {
     public interface IInternalTokenService
     {

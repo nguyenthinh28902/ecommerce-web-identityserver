@@ -1,9 +1,9 @@
 ﻿using Duende.IdentityServer.Services;
-using EcommerceIdentityServerCMS.Models;
-using EcommerceIdentityServerCMS.Models.ViewModels.Accounts;
+using Ecom.IdentityServer.Models;
+using Ecom.IdentityServer.Models.ViewModels.Accounts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EcommerceIdentityServerCMS.Controllers
+namespace Ecom.IdentityServer.Controllers
 {
     [Route("auth")]
     public class LoginController : Controller

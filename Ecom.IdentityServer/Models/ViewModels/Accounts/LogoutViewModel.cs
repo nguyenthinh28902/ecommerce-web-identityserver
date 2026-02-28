@@ -1,4 +1,4 @@
-﻿namespace EcommerceIdentityServerCMS.Models.ViewModels.Accounts
+﻿namespace Ecom.IdentityServer.Models.ViewModels.Accounts
 {
     public class LogoutViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace EcommerceIdentityServerCMS.Models.Settings
+﻿namespace Ecom.IdentityServer.Models.Settings
 {
     public class InternalAuthOptions
     {

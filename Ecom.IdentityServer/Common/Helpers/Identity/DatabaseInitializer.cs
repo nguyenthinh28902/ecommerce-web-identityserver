@@ -1,10 +1,10 @@
 ﻿using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
-using EcommerceIdentityServerCMS.Common.Helpers.Identity.Config;
-using EcommerceIdentityServerCMS.Models.Settings;
+using Ecom.IdentityServer.Common.Helpers.Identity.Config;
+using Ecom.IdentityServer.Models.Settings;
 using Microsoft.EntityFrameworkCore;
 
-namespace EcommerceIdentityServerCMS.Common.Helpers.Identity
+namespace Ecom.IdentityServer.Common.Helpers.Identity
 {
     public static class DatabaseInitializer
     {

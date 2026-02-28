@@ -1,9 +1,9 @@
-﻿namespace EcommerceIdentityServerCMS.Models.Settings
+﻿namespace Ecom.IdentityServer.Models.Settings
 {
     public class ConfigServiceUrl
     {
-        public string EcommerceGatewayCMS { get; set; } = string.Empty;
+        public string EcomGatewayUrl { get; set; } = string.Empty;
 
-        public string EcommerceMVCCMS { get; set; } = string.Empty;
+        public string EcomWebUrl { get; set; } = string.Empty;
     }
 }

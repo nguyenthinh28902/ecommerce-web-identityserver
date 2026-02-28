@@ -1,6 +1,7 @@
 ﻿using Duende.IdentityServer.Models;
+using System.IdentityModel.Tokens.Jwt;
 
-namespace EcommerceIdentityServerCMS.Common.Helpers.Identity.Config
+namespace Ecom.IdentityServer.Common.Helpers.Identity.Config
 {
     public static class ApiResources
     {
@@ -8,14 +9,30 @@ namespace EcommerceIdentityServerCMS.Common.Helpers.Identity.Config
         {
             return new[]
             {
-                    // Resource mới dành riêng cho Customer Service
-                    // 1. Identity/User Service Resource
-                new ApiResource("user.api", "Identity CMS Service API")
-                {
-                    Scopes = { "user.internal", "user.read", "user.write" },
-                    // UserClaims giúp đính kèm thêm thông tin vào Access Token khi gọi API này
-                    UserClaims = { "sub" },
-                },
+                // 1. Customer Service API Resource
+        new ApiResource("customer.api", "Identity CMS Service API")
+        {
+            Scopes = { "customer.internal", "customer.read", "customer.write" },
+            // Thêm Email và PhoneNumber vào đây để IdentityServer biết đường mà nhồi vào Access Token
+            UserClaims =
+            {
+                JwtRegisteredClaimNames.Sub,
+                JwtRegisteredClaimNames.Email,
+                JwtRegisteredClaimNames.PhoneNumber
+            },
+        },
+
+        // 2. Product Service API Resource
+        new ApiResource("Product.api", "Product Service API")
+        {
+            Scopes = { "Product.read.web" },
+            // Tương tự, nếu Product Service cần thông tin liên lạc thì add vào đây
+            UserClaims =
+            {
+                JwtRegisteredClaimNames.Sub,
+                JwtRegisteredClaimNames.Email
+            },
+        }
               };
         }
     }

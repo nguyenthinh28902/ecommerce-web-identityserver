@@ -1,13 +1,13 @@
 ﻿using Duende.IdentityServer.Services;
-using EcommerceIdentityServerCMS.Common.Exceptions;
-using EcommerceIdentityServerCMS.Models;
-using EcommerceIdentityServerCMS.Models.ViewModels.Accounts;
-using EcommerceIdentityServerCMS.Services.Interfaces;
+using Ecom.IdentityServer.Common.Exceptions;
+using Ecom.IdentityServer.Models;
+using Ecom.IdentityServer.Models.ViewModels.Accounts;
+using Ecom.IdentityServer.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace EcommerceIdentityServerCMS.Controllers
+namespace Ecom.IdentityServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -55,7 +55,7 @@ namespace EcommerceIdentityServerCMS.Controllers
                 if (!result.IsSuccess)
                 {
                     // Trả về lỗi nghiệp vụ (Sai pass, user bị khóa...)
-                    return Unauthorized(new { message = result.Error ?? "Tài khoản hoặc mật khẩu không chính xác." });
+                    return Unauthorized(new { message = result.Noti ?? "Tài khoản hoặc mật khẩu không chính xác." });
                 }
 
                 return Redirect(signInViewModel.ReturnUrl ?? "/");

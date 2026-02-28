@@ -1,10 +1,10 @@
-﻿namespace EcommerceIdentityServerCMS.Models.Enums
+﻿namespace Ecom.IdentityServer.Models.Enums
 {
     public enum ServiceAuth
     {
-        APIGatewayCMSService,
+        APIGatewayService,
         IdentityServer,
-        cms_admin_client
+        ecom_web_client
     }
 
     public enum ExpireTimeSpanSignIn

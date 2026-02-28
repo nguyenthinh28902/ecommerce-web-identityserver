@@ -1,6 +1,6 @@
 ﻿using Duende.IdentityServer.Models;
 
-namespace EcommerceIdentityServerCMS.Models
+namespace Ecom.IdentityServer.Models
 {
     public class ErrorViewModel
     {

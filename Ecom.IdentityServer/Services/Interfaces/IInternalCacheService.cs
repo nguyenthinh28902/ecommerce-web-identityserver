@@ -1,4 +1,4 @@
-﻿namespace EcommerceIdentityServerCMS.Services.Interfaces
+﻿namespace Ecom.IdentityServer.Services.Interfaces
 {
     public interface IInternalCacheService
     {

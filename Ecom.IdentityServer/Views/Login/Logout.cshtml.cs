@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EcommerceIdentityServerCMS.Views.Login
+namespace Ecom.IdentityServer.Views.Login
 {
     public class LogoutModel : PageModel
     {

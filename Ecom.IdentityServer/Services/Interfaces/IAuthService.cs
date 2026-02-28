@@ -1,8 +1,8 @@
-﻿using EcommerceIdentityServerCMS.Models;
-using EcommerceIdentityServerCMS.Models.DTOs.SignIn;
-using EcommerceIdentityServerCMS.Models.ViewModels.Accounts;
+﻿using Ecom.IdentityServer.Models;
+using Ecom.IdentityServer.Models.DTOs.SignIn;
+using Ecom.IdentityServer.Models.ViewModels.Accounts;
 
-namespace EcommerceIdentityServerCMS.Services.Interfaces
+namespace Ecom.IdentityServer.Services.Interfaces
 {
     public interface IAuthService
     {
@@ -22,11 +22,19 @@ namespace EcommerceIdentityServerCMS.Services.Interfaces
 
         /// <summary>
         /// Hàm xác thực thông tin user với IdentityCMSService và thực hiện lưu trữ phiên đăng nhập 
-        /// kết kết hợp 2 hàm AuthenticateInternal + SignInIdentityUserAsync
+        /// kết kết hợp 2 hàm AuthenticateProvider + SignInIdentityUserAsync
         /// </summary>
         /// <param name="signInViewModel">Thông tin UserID và Password từ nhân sự</param>
         /// <returns></returns>
         public Task<Result<SignInResponseDto>> ProcessSignInAsync(SignInViewModel signInViewModel);
+
+        /// <summary>
+        /// hàm sign-in với google
+        /// </summary>
+        /// <param name="userInfoSinginDto">thông tin user của goole trả về</param>
+        /// <param name="providerName">google</param>
+        /// <returns>sigin-in với idenity server true</returns>
+        public Task<bool> AuthenticateProvider(UserInfoSinginDto userInfoSinginDto, string providerName);
 
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace EcommerceIdentityServerCMS.Migrations.PersistedGrantDb
+namespace Ecom.IdentityServer.Data.Migrations.PersistedGrantDb
 {
     /// <inheritdoc />
     public partial class InitialPersistedGrantDb : Migration

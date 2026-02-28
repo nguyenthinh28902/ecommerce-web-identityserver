@@ -1,6 +1,6 @@
-﻿using EcommerceIdentityServerCMS.Models.Settings;
+﻿using Ecom.IdentityServer.Models.Settings;
 
-namespace EcommerceIdentityServerCMS.Common.Helpers
+namespace Ecom.IdentityServer.Common.Helpers
 {
     public static class ConfigAppSetting
     {

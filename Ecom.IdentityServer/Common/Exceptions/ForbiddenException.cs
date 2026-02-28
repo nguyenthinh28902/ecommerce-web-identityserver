@@ -1,4 +1,4 @@
-﻿namespace EcommerceIdentityServerCMS.Common.Exceptions
+﻿namespace Ecom.IdentityServer.Common.Exceptions
 {
     public class ForbiddenException : Exception
     {

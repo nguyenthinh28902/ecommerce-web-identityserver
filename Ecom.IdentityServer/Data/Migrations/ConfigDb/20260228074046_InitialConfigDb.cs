@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace EcommerceIdentityServerCMS.Migrations
+namespace Ecom.IdentityServer.Data.Migrations.ConfigDb
 {
     /// <inheritdoc />
-    public partial class InitialConfigurationDb : Migration
+    public partial class InitialConfigDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

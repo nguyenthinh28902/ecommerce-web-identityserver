@@ -1,11 +1,11 @@
 ﻿using Duende.IdentityModel.Client;
-using EcommerceIdentityServerCMS.Models;
-using EcommerceIdentityServerCMS.Models.DTOs.SignIn;
-using EcommerceIdentityServerCMS.Models.Settings;
-using EcommerceIdentityServerCMS.Services.Interfaces;
+using Ecom.IdentityServer.Models;
+using Ecom.IdentityServer.Models.DTOs.SignIn;
+using Ecom.IdentityServer.Models.Settings;
+using Ecom.IdentityServer.Services.Interfaces;
 using Microsoft.Extensions.Options;
 
-namespace EcommerceIdentityServerCMS.Services.Services
+namespace Ecom.IdentityServer.Services.Services
 {
     public class InternalTokenService : IInternalTokenService
     {
@@ -52,7 +52,7 @@ namespace EcommerceIdentityServerCMS.Services.Services
                     Address = _authServiceConfigs.TokenEndpoint,
                     ClientId = _authServiceConfigs.ClientId,
                     ClientSecret = _authServiceConfigs.ClientSecret,
-                    Scope = "user.internal"
+                    Scope = "customer.internal"
                 });
 
                 if (tokenResponse == null || tokenResponse.IsError)

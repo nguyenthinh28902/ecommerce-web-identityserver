@@ -1,8 +1,8 @@
-﻿using EcommerceIdentityServerCMS.Services.Interfaces;
+﻿using Ecom.IdentityServer.Services.Interfaces;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace EcommerceIdentityServerCMS.Services.Services
+namespace Ecom.IdentityServer.Services.Services
 {
     public class InternalCacheService : IInternalCacheService
     {

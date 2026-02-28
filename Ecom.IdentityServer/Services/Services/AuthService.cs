@@ -1,16 +1,19 @@
 ﻿using Duende.IdentityServer;
-using EcommerceIdentityServerCMS.Common.Exceptions;
-using EcommerceIdentityServerCMS.Models;
-using EcommerceIdentityServerCMS.Models.DTOs.SignIn;
-using EcommerceIdentityServerCMS.Models.Enums;
-using EcommerceIdentityServerCMS.Models.ViewModels.Accounts;
-using EcommerceIdentityServerCMS.Services.Interfaces;
+using Ecom.IdentityServer.Common.Exceptions;
+using Ecom.IdentityServer.Models;
+using Ecom.IdentityServer.Models.DTOs.SignIn;
+using Ecom.IdentityServer.Models.Enums;
+using Ecom.IdentityServer.Models.Settings;
+using Ecom.IdentityServer.Models.ViewModels.Accounts;
+using Ecom.IdentityServer.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Text.Json;
 
-namespace EcommerceIdentityServerCMS.Services.Services
+namespace Ecom.IdentityServer.Services.Services
 {
     public class AuthService : IAuthService
     {
@@ -19,18 +22,21 @@ namespace EcommerceIdentityServerCMS.Services.Services
         private readonly ILogger<AuthService> _logger;
         private readonly IInternalCacheService _internalCacheService;
         private readonly IInternalTokenService _tokenService;
+        private readonly ConfigServiceUrl _configServiceUrl;
 
         public AuthService(HttpClient httpClient,
             ILogger<AuthService> logger,
             IHttpContextAccessor httpContextAccessor,
             IInternalCacheService internalCacheService,
-            IInternalTokenService internalTokenService)
+            IInternalTokenService internalTokenService,
+            IOptions<ConfigServiceUrl> options)
         {
             _httpClient = httpClient;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
             _internalCacheService = internalCacheService;
             _tokenService = internalTokenService;
+            _configServiceUrl = options.Value;
         }
 
         /// <summary>
@@ -77,7 +83,7 @@ namespace EcommerceIdentityServerCMS.Services.Services
 
         /// <summary>
         /// Hàm xác thực thông tin user với IdentityCMSService và thực hiện lưu trữ phiên đăng nhập 
-        /// kết kết hợp 2 hàm AuthenticateInternal + SignInIdentityUserAsync
+        /// kết kết hợp 2 hàm AuthenticateProvider + SignInIdentityUserAsync
         /// </summary>
         /// <param name="signInViewModel">Thông tin UserID và Password từ nhân sự</param>
         /// <returns></returns>
@@ -118,30 +124,63 @@ namespace EcommerceIdentityServerCMS.Services.Services
         {
             var claims = new List<Claim>
             {
-         new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-         new Claim(JwtRegisteredClaimNames.Email, user.Email ?? "")
-     };
+                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                 new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
+                 new Claim(JwtRegisteredClaimNames.PhoneNumber, user.PhoneNumber ?? "")
+             };
 
-            // Đóng gói đầy đủ Roles và các thông tin quan trọng để Gateway thực hiện phân quyền
-            var userCache = new UserCacheModel {
-                Id = user.Id,
-                Email = user.Email,
-                Roles = user.Roles,
-                WorkplaceId = user.WorkplaceId
-            };
 
-            var cacheKey = $"{AuthCacheOptions.CacheUserInfor}{user.Id}";
-            var expireTime = TimeSpan.FromHours((int)ExpireTimeSpanSignIn.Medium);
 
-            // Đồng bộ thông tin vào Redis cho các service khác dùng chung
-            await _internalCacheService.SetAsync(cacheKey, userCache, (int)expireTime.TotalSeconds);
-
-            var isUser = new IdentityServerUser(user.Id.ToString()) {
-                DisplayName = user.Id.ToString(),
+            var isUser = new IdentityServerUser(user.Id.ToString())
+            {
+                DisplayName = user.Email ?? user.PhoneNumber,
                 AdditionalClaims = claims
             };
 
             await _httpContextAccessor.HttpContext.SignInAsync(isUser);
         }
+
+        public async Task<bool> AuthenticateProvider(UserInfoSinginDto userInfoSinginDto, string providerName)
+        {
+
+            var token = await _tokenService.GetSystemTokenAsync();
+            _logger.LogInformation($"check token AuthenticateInternal  {token?.AccessToken}");
+            _httpClient.DefaultRequestHeaders.Authorization =
+                  new AuthenticationHeaderValue("Bearer", token?.AccessToken);
+
+            var payload = new
+            {
+                Request = userInfoSinginDto,
+                ProviderName = providerName
+            };
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync(
+              $"{_configServiceUrl.EcomGatewayUrl}{ConfigApi.ApiAuthenticateInternal}",
+              payload);
+                response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var result = await response.Content.ReadFromJsonAsync<Result<SignInResponseDto>>();
+                    if (result == null || result.IsSuccess == false || result.Data == null)
+                    {
+                        return false;
+                    }
+                    await EstablishUserSessionAsync(result.Data);
+                }
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"call api check thông tin khách hàng {userInfoSinginDto.Name} lỗi: {ex.Message}");
+                _logger.LogInformation($"Thông tin google: {JsonSerializer.Serialize(userInfoSinginDto)}");
+                return false;
+            }
+
+            return true;
+        }
+
+
     }
 }

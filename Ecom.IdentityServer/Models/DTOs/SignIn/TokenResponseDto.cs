@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EcommerceIdentityServerCMS.Models.DTOs.SignIn
+namespace Ecom.IdentityServer.Models.DTOs.SignIn
 {
     public class TokenResponseDto
     {
