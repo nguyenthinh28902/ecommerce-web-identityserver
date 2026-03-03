@@ -23,9 +23,9 @@ namespace Ecom.IdentityServer.Common.Helpers.Identity.Config
         },
 
         // 2. Product Service API Resource
-        new ApiResource("Product.api", "Product Service API")
+        new ApiResource("product.api", "Product Service API")
         {
-            Scopes = { "Product.read.web" },
+            Scopes = { "product.read.web" },
             // Tương tự, nếu Product Service cần thông tin liên lạc thì add vào đây
             UserClaims =
             {
