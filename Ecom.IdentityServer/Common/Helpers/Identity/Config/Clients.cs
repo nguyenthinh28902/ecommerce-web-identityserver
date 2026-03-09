@@ -22,7 +22,6 @@ namespace Ecom.IdentityServer.Common.Helpers.Identity.Config
                     {
                         // Chỉ add các quyền "Internal" để Gateway có quyền quản trị cao nhất khi gọi Service
                         "customer.internal",
-                         "product.read.web"
                     },
                     AccessTokenLifetime = 5 * 60 // ⏱️ 5 phút là quá đủ
                 },
@@ -37,7 +36,9 @@ namespace Ecom.IdentityServer.Common.Helpers.Identity.Config
                     {
                         // Chỉ add các quyền "Internal" để Gateway có quyền quản trị cao nhất khi gọi Service
                         "customer.internal",
-                        "product.read.web"
+                        "product.read.web",
+                        "order.internal.web",
+                        "payment.internal.web"
                     },
                     AccessTokenLifetime = 5 * 60 // ⏱️ 5 phút là quá đủ
                 },
@@ -69,6 +70,10 @@ namespace Ecom.IdentityServer.Common.Helpers.Identity.Config
                         "customer.read",
                         "customer.write",
                         "product.read.web",
+                        "order.write.web",
+                        "order.read.web",
+                        "payment.read.web",
+                        "payment.write.web"
                     },
                     AlwaysSendClientClaims = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
