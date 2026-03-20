@@ -1,7 +1,6 @@
 ﻿using Ecom.IdentityServer.Models.Enums;
 using Ecom.IdentityServer.Models.Google;
 using Ecom.IdentityServer.Models;
-using Ecom.IdentityServer.Models.Enums;
 using Ecom.IdentityServer.Models.Settings;
 using Microsoft.AspNetCore.Authentication;
 

@@ -1,4 +1,5 @@
-﻿using Ecom.IdentityServer.Models.Settings;
+﻿using Ecom.IdentityServer.Models;
+using Ecom.IdentityServer.Models.Settings;
 using Ecom.IdentityServer.Services.Interfaces;
 using Ecom.IdentityServer.Services.Services;
 
@@ -9,6 +10,8 @@ namespace Ecom.IdentityServer.Common.Helpers
         public static IServiceCollection AddServiceDI(this IServiceCollection services, IConfiguration configuration)
         {
             // Bind cấu hình vào Model
+            services.Configure<RedisConnection>(configuration.GetSection(nameof(RedisConnection)));
+
             var configServiceUrl = configuration.GetSection(nameof(ConfigServiceUrl)).Get<ConfigServiceUrl>();
             var serviceAuthOptions = configuration.GetSection(nameof(InternalAuthOptions)).Get<InternalAuthOptions>();
             if (configServiceUrl == null || serviceAuthOptions == null) throw new ArgumentNullException($"Không tìm thấy cấu hình trong appsettings.{nameof(AddServiceDI)}");

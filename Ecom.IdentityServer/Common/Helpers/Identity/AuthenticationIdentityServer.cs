@@ -1,7 +1,9 @@
-﻿using Ecom.IdentityServer.Models.Settings;
+﻿using Ecom.IdentityServer.Models;
+using Ecom.IdentityServer.Models.Settings;
 using Ecom.IdentityServer.Services.Interfaces;
 using Ecom.IdentityServer.Services.Services;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using System.Reflection;
 
 public static class AuthenticationIdentityServer
@@ -14,14 +16,22 @@ public static class AuthenticationIdentityServer
         if (configServiceUrl == null || connectionString == null)
             throw new ArgumentNullException($"Không tìm thấy cấu hình trong appsettings.{nameof(AddAuthenticationIdentityServer)}");
         var EcommerceMVCCMS = configServiceUrl.EcomWebUrl;
-        var RedisConnectionString = configuration["RedisConnection:RedisConnectionString"];
-        var InstanceName = configuration["RedisConnection:InstanceName"];
-
+        
+        var redisSettings = configuration.GetSection(nameof(RedisConnection)).Get<RedisConnection>();
         // 1. Cấu hình Redis Cache cho IdentityServer (Lưu trữ các Grant, Token, v.v.)
         services.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = RedisConnectionString;
-            options.InstanceName = InstanceName;
+            options.Configuration = redisSettings?.RedisConnectionString;
+            options.InstanceName = redisSettings?.InstanceName;
+            var configOptions = ConfigurationOptions.Parse(redisSettings?.RedisConnectionString ?? string.Empty);
+            configOptions.ConnectTimeout = 1000;
+            configOptions.SyncTimeout = 500;
+            configOptions.AsyncTimeout = 500;
+            configOptions.ConnectRetry = 0;
+            configOptions.AbortOnConnectFail = false;
+
+            options.ConfigurationOptions = configOptions;
+
         });
 
         var builder = services.AddIdentityServer(options =>
