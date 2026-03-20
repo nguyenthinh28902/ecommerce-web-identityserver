@@ -1,16 +1,16 @@
-﻿# EcommerceApiGatewayCMS – API Gateway
+﻿# Ecommerce identity server web
 
-## Giới thiệu
+### Thông tin chung của dự án
+[Thông tin chung dự án](https://github.com/nguyenthinh28902/mini-project-ecommerce).
 
-`EcommerceApiGatewayCMS` là **API Gateway** của hệ thống Ecommerce CMS, được xây dựng trên **ASP.NET Core** và **YARP (Yet Another Reverse Proxy)**.
+### Cấu hình xác thực tại Web
+[Xem tiếp](https://github.com/nguyenthinh28902/ecommerce-cms-web).
 
-Dự án đóng vai trò là **điểm truy cập duy nhất (Single Entry Point)** cho các client (CMS, Admin, Frontend), đồng thời tích hợp **Identity Service** để thực hiện xác thực và **cấp phát JWT Token cho client**.
+### Xác thực tại identity
+[Xem tiếp](https://github.com/nguyenthinh28902/ecommerce-identity-server-cms).
 
-API Gateway chịu trách nhiệm:
+### Xác thực tại Getaway 
+[Xem tiếp](https://github.com/nguyenthinh28902/ecommerce-api-gateway-cms).
 
-* Tiếp nhận và định tuyến request từ client đến các backend services
-* Kết nối với **Identity Service** để xác thực người dùng
-* Trả về **JWT Access Token** cho client sau khi đăng nhập thành công
-* Đảm bảo kiểm soát truy cập và bảo mật ở tầng gateway
-
-> Hiện tại README chỉ mô tả **mục đích và vai trò của dự án**, chưa bao gồm hướng dẫn build, cấu hình hay triển khai.
+### Xác thực tại Service (Product servcie)
+[Xem tiếp](https://github.com/nguyenthinh28902/Ecom.ProductService).
