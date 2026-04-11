@@ -1,16 +1,22 @@
-﻿# Ecommerce identity server web
+## 🔗 Technical Implementation (Chi tiết triển khai kỹ thuật)
 
-### Thông tin chung của dự án
-[Thông tin chung dự án](https://github.com/nguyenthinh28902/mini-project-ecommerce).
-
-### Cấu hình xác thực tại Web
-[Xem tiếp](https://github.com/nguyenthinh28902/ecommerce-cms-web).
-
-### Xác thực tại identity
-[Xem tiếp](https://github.com/nguyenthinh28902/ecommerce-identity-server-cms).
-
-### Xác thực tại Getaway 
-[Xem tiếp](https://github.com/nguyenthinh28902/ecommerce-api-gateway-cms).
-
-### Xác thực tại Service (Product servcie)
-[Xem tiếp](https://github.com/nguyenthinh28902/Ecom.ProductService).
+Để hiểu rõ cách hệ thống vận hành, bạn có thể tham khảo chi tiết cấu hình tại các tầng sau:
+> **Tổng quan dự án xem tại đây:** [Xem đầy đủ kiến trúc tại đây](https://github.com/nguyenthinh28902/mini-project-ecommerce)
+* **Presentation Security (Client-Side):**
+    * Triển khai OIDC Middleware để quản lý phiên đăng nhập và bảo mật Cookie.
+    * Cấu hình chuyển hướng tự động tới Identity Server.
+    * [Xem cấu hình tại Web CMS](https://github.com/nguyenthinh28902/ecommerce-cms-web)
+* **Identity Provider Configuration:**
+    * Định nghĩa các `IdentityResources`, `ApiScopes` và `ApiResources`.
+    * Cấu hình Client Credentials cho Gateway và Authorization Code cho các ứng dụng MVC.
+    * Triển khai Custom Profile Service để mapping Claims từ API User/Customer.
+    * [Xem cấu hình tại Identity Server](https://github.com/nguyenthinh28902/ecommerce-identity-server-cms)
+* **Gateway Routing & Security (YARP):**
+    * Cấu hình Reverse Proxy chuyển tiếp yêu cầu dựa trên Route.
+    * Triển khai Policy xác thực tại Gateway để đảm bảo chỉ các request có Token hợp lệ mới được đi vào tầng Service.
+    * [Xem cấu hình tại Gateway](https://github.com/nguyenthinh28902/ecommerce-api-gateway-cms)
+* **Service-Level Security (Resource Server):**
+    * Cấu hình xác thực JWT Bearer tại từng Microservice.
+    * Phân quyền mức độ chi tiết dựa trên Scopes và Claims (Policy-based Authorization).
+    * [Xem cấu hình tại Product Service](https://github.com/nguyenthinh28902/Ecom.ProductService)
+---
